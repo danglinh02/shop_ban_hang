@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+</head>
+
+<body id="page-top">
+    <!--Page wrapper -->
+    <div id="wrapper">
+
+        <!-- SideBar -->
+            <ul th:replace="fragments :: sidebar"></ul>
+        <!-- End of SideBar -->
+
+        <!-- Content Wrapper-->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content-->
+            <div id="content">
+
+                <!--TopBar-->
+                <nav th:replace="fragments :: topbar"></nav>
+                <!-- End of TopBar-->
+
+                <!--Begin Page Content-->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div th:if="${size == 0}">
+                        <p>No Category</p>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" th:href="@{/addForm-category}">Add New Category</a>
+                        <div th:if="${success}" class="text-center text-success alert alert-success">
+                            <span th:text="${success}"></span>
+                        </div>
+                        <div th:if="${failed}" class="text-center text-danger alert alert-danger">
+                            <span th:text="${failed}"></span>
+                        </div>
+                        <div th:if="${error}" class="text-center text-danger alert alert-danger">
+                            <span th:text="${error}"></span>
+                        </div>
+                    </div>
+                        <table class="table table-bordered" th:if="${size > 0}">
+                        <thead>
+                        <tr>
+                            <th scope="col">Category Index</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Edit Category Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${categories}">
+                            <th scope="row" th:text="${category.id}"></th>
+                            <td th:text="${category.name}"></td>
+                            <td>
+                                <a th:href="@{/editForm/{id}(id=${category.id})}" class="btn btn-primary">Update</a>
+                            </td>
+                            <td>
+                                <a th:if="${category.isActivated== true}" th:href="@{/delete-category/{id}(id=${category.id})}" class="btn btn-warning">Delete</a>
+                                <a th:if="${category.isDeleted == true}" th:href="@{/enable-category/{id}(id=${category.id})}" class="btn btn-primary">Enabled</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--./container-fluid-->
+
+                </div>
+            <!-- End of main content-->
+            <!-- Footer-->
+            <footer th:replace="fragments :: footer"></footer>
+            <!--End of footer -->
+        </div>
+            <!-- End of Content Wrapper-->
+        </div>
+        <!-- End of Page Wrapper-->
+    <!-- Scroll to Top Button -->
+    <a th:replace="fragments :: scroll"></a>
+
+    <!-- Logout Modal-->
+
+    <!--Boostrap core javascript-->
+    <div th:replace="fragments :: script"></div>
+</body>
+
+</html>

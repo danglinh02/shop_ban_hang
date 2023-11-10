@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+
+<head th:replace="/fragments :: header">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <div th:if="${error}">
+                                <p th:text="${error}" class="alert alert-danger text-center text-danger"></p>
+                            </div>
+                            <div th:if="${success}">
+                                <p th:text="${success}" class="alert alert-success text-center text-success"></p>
+                            </div>
+                            <form class="user" th:action="@{/register-new}" th:object="${adminDto}" method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="First Name" th:field="*{firstName}">
+                                        <div th:if="${#fields.hasErrors('firstName')}" th:errors= "*{firstName}" class="alert-danger alert text-danger text-center"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="Last Name"  th:field="*{lastName}">
+                                        <div th:if="${#fields.hasErrors('lastName')}" th:errors= "*{lastName}" class="alert-danger alert text-danger text-center"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                        placeholder="Email User Name"  th:field="*{userName}">
+                                    <div th:if="${#fields.hasErrors('userName')}" th:errors= "*{userName}" class="alert-danger alert text-danger text-center"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="exampleInputPassword" placeholder="Password"  th:field="*{password}">
+                                        <div th:if="${#fields.hasErrors('password')}" th:errors= "*{password}" class="alert-danger alert text-danger text-center"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="exampleRepeatPassword" placeholder="Repeat Password"  th:field="*{repeatPassword}">
+                                    </div>
+                                </div>
+                              <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
+                                <hr>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html" th:href="@{/forgot-password}">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="login.html" th:href="@{/login}">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="fragments :: script"></div>
+
+</body>
+
+</html>
